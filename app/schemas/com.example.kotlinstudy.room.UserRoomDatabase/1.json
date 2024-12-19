@@ -1,0 +1,220 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "5c702ed72f0c0ed8fde15617991358fa",
+    "entities": [
+      {
+        "tableName": "UserRoom",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `age` INTEGER NOT NULL, `sex` INTEGER NOT NULL, `data` TEXT, `datetime` TEXT, `famian` INTEGER NOT NULL, `yongmian` INTEGER NOT NULL, `bean` INTEGER NOT NULL, `rice` INTEGER NOT NULL, `meat` INTEGER NOT NULL, `vagetable` INTEGER NOT NULL, `yimingmilk` INTEGER NOT NULL, `milk` INTEGER NOT NULL, `egg` INTEGER NOT NULL, `doufu` INTEGER NOT NULL, `mianfen` INTEGER NOT NULL, `gas` INTEGER NOT NULL, `house` INTEGER NOT NULL, `wechat` INTEGER NOT NULL, `alipay` INTEGER NOT NULL, `cash` INTEGER NOT NULL, `vip` INTEGER NOT NULL, `waimai` INTEGER NOT NULL, `turnover` INTEGER NOT NULL, `balance` INTEGER NOT NULL, `blank_int1` INTEGER NOT NULL, `blank_int2` INTEGER NOT NULL, `blank_int3` INTEGER NOT NULL, `blank_str1` TEXT, `blank_str2` TEXT, `blank_str3` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "age",
+            "columnName": "age",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sex",
+            "columnName": "sex",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "data",
+            "columnName": "data",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "datetime",
+            "columnName": "datetime",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "famian",
+            "columnName": "famian",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "yongmian",
+            "columnName": "yongmian",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bean",
+            "columnName": "bean",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rice",
+            "columnName": "rice",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "meat",
+            "columnName": "meat",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vagetable",
+            "columnName": "vagetable",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "yimingmilk",
+            "columnName": "yimingmilk",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "milk",
+            "columnName": "milk",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "egg",
+            "columnName": "egg",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "doufu",
+            "columnName": "doufu",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mianfen",
+            "columnName": "mianfen",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gas",
+            "columnName": "gas",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "house",
+            "columnName": "house",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wechat",
+            "columnName": "wechat",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "alipay",
+            "columnName": "alipay",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cash",
+            "columnName": "cash",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vip",
+            "columnName": "vip",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "waimai",
+            "columnName": "waimai",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "turnover",
+            "columnName": "turnover",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "balance",
+            "columnName": "balance",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "blank_int1",
+            "columnName": "blank_int1",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "blank_int2",
+            "columnName": "blank_int2",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "blank_int3",
+            "columnName": "blank_int3",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "blank_str1",
+            "columnName": "blank_str1",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "blank_str2",
+            "columnName": "blank_str2",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "blank_str3",
+            "columnName": "blank_str3",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5c702ed72f0c0ed8fde15617991358fa')"
+    ]
+  }
+}

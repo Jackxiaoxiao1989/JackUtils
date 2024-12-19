@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/work_new" android:title="new" android:icon="@mipmap/read_heart"></item>
+    <item android:id="@+id/work_scan" android:title="scan" android:icon="@mipmap/read_pause"></item>
+    <item android:id="@+id/work_back" android:title="back" android:icon="@mipmap/read_noise"></item>
+</menu>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <Button
+        android:id="@+id/work_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Worker"
+        />
+
+    <Button
+        android:id="@+id/fragment_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fragment"
+        />
+
+    <Button
+        android:id="@+id/jetpack_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Jatpack"
+        />
+
+    <Button
+        android:id="@+id/aidl_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="AIDL"
+        />
+
+    <Button
+        android:id="@+id/view_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="custom view"
+        />
+    <Button
+        android:id="@+id/bt_chat_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="bt chat"
+        />
+    <Button
+        android:id="@+id/navigation_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="navigation"
+        />
+</LinearLayout>
+</layout>

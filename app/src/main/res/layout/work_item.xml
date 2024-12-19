@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activity.WorkActivity">
+    <data>
+        <import type="com.example.kotlinstudy.info.WorkItemInfo" />
+        <import type="java.util.List"/>
+        <import type="java.util.Map"/>
+        <variable
+            name="item_info"
+            type="WorkItemInfo" />
+    </data>
+<LinearLayout
+    android:id="@+id/work_item_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/work_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@{item_info.iconDrawable}"
+        />
+
+    <TextView
+        android:id="@+id/work_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@{item_info.name}"
+        />
+
+    <TextView
+        android:id="@+id/work_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@{item_info.data}"
+        />
+</LinearLayout>
+</layout>

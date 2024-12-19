@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/customer_nav"
+    app:startDestination="@id/one">
+    <fragment android:id="@+id/one"
+        android:name="com.example.kotlinstudy.fragment.OneFragment">
+        <action
+            android:id="@+id/action_one_to_two"
+            app:destination="@id/two" />
+    </fragment>
+    <fragment android:id="@+id/two"
+        android:name="com.example.kotlinstudy.fragment.TwoFragment">
+        <action
+            android:id="@+id/action_two_to_three"
+            app:destination="@id/three" />
+    </fragment>
+    <fragment android:id="@+id/three"
+        android:name="com.example.kotlinstudy.fragment.ThreeFragment"/>
+</navigation>
