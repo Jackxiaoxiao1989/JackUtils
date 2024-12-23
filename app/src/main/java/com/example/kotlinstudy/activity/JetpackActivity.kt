@@ -17,6 +17,11 @@ import com.example.kotlinstudy.utils.KotlinScope
 import com.example.kotlinstudy.utils.KotlinThreadPool
 import com.example.kotlinstudy.utils.KotlinUtils
 import com.example.kotlinstudy.viewmodel.ShareViewModel
+import com.xiaoxiao.jackutils.control.SoftFileSystem
+import com.xiaoxiao.jackutils.utils.SoftCache
+import com.xiaoxiao.jackutils.utils.SoftScope
+import com.xiaoxiao.jackutils.utils.SoftThreadPool
+import com.xiaoxiao.jackutils.utils.SoftUtils
 import java.util.*
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
@@ -43,6 +48,30 @@ class JetpackActivity<T> : AppCompatActivity() {
         initDatas()
         initViews()
         initViewModel()
+    }
+
+    fun testJackUtilsLib(){
+        SoftUtils.startFileLog()
+        SoftUtils.log(tag,"testJackUtilsLib,start")
+        SoftFileSystem.getInstance()!!.init(this)
+        SoftCache.getInstance()!!.initAll(1024*10)
+        SoftCache.getInstance()!!.addOneCache("jack","handsome")
+        var cacheValue=SoftCache.getInstance()!!.getOneCache("jack")
+        SoftUtils.log(tag,"cacheValue=$cacheValue")
+
+        SoftThreadPool.getInstance()!!.initAll(2)
+        SoftThreadPool.getInstance()!!.addOneJob(object:Runnable{
+            override fun run() {
+                SoftUtils.log(tag,"testJackUtilsLib,thread pool")
+            }
+        })
+
+        SoftScope.builder().setAction(object:SoftScope.ScopeAction{
+            override fun doAction() {
+                SoftUtils.log(tag,"testJackUtilsLib,scope action")
+            }
+        }).launch()
+        SoftUtils.log(tag,"testJackUtilsLib,end")
     }
 
     fun initViewModel(){
@@ -200,6 +229,10 @@ class JetpackActivity<T> : AppCompatActivity() {
             testCoroutines()
         }
 
+        bingding?.jetpackBtn9?.setOnClickListener{
+            KotlinUtils.log(tag,"btn9,click")
+            testJackUtilsLib()
+        }
     }
 
     fun handleRefresh(){

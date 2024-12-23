@@ -95,5 +95,11 @@
             android:layout_height="wrap_content"
             android:text="scope"
             />
+        <Button
+            android:id="@+id/jetpack_btn9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="jackutils lib"
+            />
     </LinearLayout>
 </layout>
