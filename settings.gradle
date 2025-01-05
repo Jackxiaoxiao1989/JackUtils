@@ -1,3 +1,6 @@
 include ':app'
 rootProject.name = "KotlinStudy"
 include ':jackutils'
+include ':testmoduleone'
+include ':testmoduletwo'
+include ':modulebase'

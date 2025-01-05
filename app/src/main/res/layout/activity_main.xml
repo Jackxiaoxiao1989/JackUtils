@@ -8,7 +8,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
-
+    <TextView
+        android:id="@+id/main_tv1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Worker"
+        />
     <Button
         android:id="@+id/work_btn"
         android:layout_width="match_parent"
@@ -54,6 +59,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="navigation"
+        />
+    <Button
+        android:id="@+id/fota_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="fota"
         />
 </LinearLayout>
 </layout>

@@ -4,6 +4,8 @@ import android.app.Application
 import android.content.Context
 import android.os.Process
 import android.text.TextUtils
+import com.alibaba.android.arouter.launcher.ARouter
+//import com.didi.virtualapk.PluginManager
 import com.example.kotlinstudy.control.FileSystemManager
 import com.example.kotlinstudy.utils.KotlinCache
 import com.example.kotlinstudy.utils.KotlinThreadPool
@@ -33,6 +35,22 @@ class KotlinApplication:Application() {
         FileSystemManager.getInstance()!!.init(this)
         KotlinCache.getInstance()!!.initAll(10)
         initBugly()
+        initArotter()
+    }
+
+
+    override fun attachBaseContext(base:Context) {
+        super.attachBaseContext(base)
+        initVirtualApk(base)
+    }
+
+    fun initVirtualApk(base:Context){
+        //PluginManager.getInstance(base).init()
+    }
+    fun initArotter(){
+        ARouter.openDebug()
+        ARouter.openLog()
+        ARouter.init(this)
     }
     private fun initFreshlayout(){
         //设置全局的Header构建器

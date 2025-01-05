@@ -1,0 +1,11 @@
+ext{
+    name="jack"
+    age=36
+    sex="men"
+    sports_list=[
+            "baskectball",
+            "football",
+            "pingpong",
+            "running"
+    ]
+}

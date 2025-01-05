@@ -8,8 +8,12 @@ import android.os.Message
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.example.kotlinstudy.R
 import com.example.kotlinstudy.databinding.ActivityJetpackBinding
+import com.example.kotlinstudy.hook.HookControl
+import com.example.kotlinstudy.hook.RealClass
 import com.example.kotlinstudy.info.AnyData
 import com.example.kotlinstudy.room.*
 import com.example.kotlinstudy.utils.KotlinCache
@@ -18,10 +22,7 @@ import com.example.kotlinstudy.utils.KotlinThreadPool
 import com.example.kotlinstudy.utils.KotlinUtils
 import com.example.kotlinstudy.viewmodel.ShareViewModel
 import com.xiaoxiao.jackutils.control.SoftFileSystem
-import com.xiaoxiao.jackutils.utils.SoftCache
-import com.xiaoxiao.jackutils.utils.SoftScope
-import com.xiaoxiao.jackutils.utils.SoftThreadPool
-import com.xiaoxiao.jackutils.utils.SoftUtils
+import com.xiaoxiao.jackutils.utils.*
 import java.util.*
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
@@ -31,6 +32,7 @@ import kotlin.collections.HashMap
 import kotlin.collections.HashSet
 import kotlinx.coroutines.*
 
+@Route(path = "/app/JetpackActivity")
 class JetpackActivity<T> : AppCompatActivity() {
     private var bingding:ActivityJetpackBinding? = null
     private var tag="JetpackActivity"
@@ -51,7 +53,7 @@ class JetpackActivity<T> : AppCompatActivity() {
     }
 
     fun testJackUtilsLib(){
-        SoftUtils.startFileLog()
+        //SoftUtils.startFileLog()
         SoftUtils.log(tag,"testJackUtilsLib,start")
         SoftFileSystem.getInstance()!!.init(this)
         SoftCache.getInstance()!!.initAll(1024*10)
@@ -69,6 +71,8 @@ class JetpackActivity<T> : AppCompatActivity() {
         SoftScope.builder().setAction(object:SoftScope.ScopeAction{
             override fun doAction() {
                 SoftUtils.log(tag,"testJackUtilsLib,scope action")
+                var cmdRsp=SoftCmd.getInstance()!!.startCmdExc("ls")
+                SoftUtils.log(tag,"testJackUtilsLib,cmdRsp=$cmdRsp")
             }
         }).launch()
         SoftUtils.log(tag,"testJackUtilsLib,end")
@@ -233,6 +237,30 @@ class JetpackActivity<T> : AppCompatActivity() {
             KotlinUtils.log(tag,"btn9,click")
             testJackUtilsLib()
         }
+
+        bingding?.jetpackBtn10?.setOnClickListener{
+            KotlinUtils.log(tag,"btn10,click")
+            testArouter()
+        }
+        bingding?.jetpackBtn11?.setOnClickListener{
+            KotlinUtils.log(tag,"btn11,click")
+            testRelectAndProxy()
+        }
+    }
+
+    fun testRelectAndProxy(){
+        var realclass=RealClass()
+        KotlinUtils.log(tag,"testRelectAndProxy")
+        realclass.startSay()
+        KotlinUtils.log(tag,"start hook now")
+        HookControl.startHook(realclass)
+        realclass.startSay()
+        KotlinUtils.log(tag,"start real2 now")
+        var realclass2=RealClass()
+        realclass2.startSay()
+    }
+    fun testArouter(){
+        ARouter.getInstance().build("/testmoduleone/MainActivity").navigation();
     }
 
     fun handleRefresh(){

@@ -101,5 +101,17 @@
             android:layout_height="wrap_content"
             android:text="jackutils lib"
             />
+        <Button
+            android:id="@+id/jetpack_btn10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ARouter"
+            />
+        <Button
+            android:id="@+id/jetpack_btn11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="reflect+proxy"
+            />
     </LinearLayout>
 </layout>

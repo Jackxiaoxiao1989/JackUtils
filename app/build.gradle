@@ -2,8 +2,10 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'org.jetbrains.kotlin.kapt'
+    //id 'com.didi.virtualapk.host'
 }
-
+apply plugin: 'kotlin-android'
 android {
     compileSdkVersion 30
     buildToolsVersion "29.0.3"
@@ -19,10 +21,16 @@ android {
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments += [
+                        //AROUTER_MODULE_NAME: project.getName(),
                         "room.schemaLocation":"$projectDir/schemas".toString()//,//配置并启用导出数据库架构.Json##版本迁移
                         //"room.incremental":"true",//启用Gradle增量注解处理器
                         //"room.expandProjection":"true"
                 ]//配置 Room 以重写查询，使其顶部星形投影在展开后仅包含DAO 方法返回类型中定义的列。
+            }
+        }
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
             }
         }
     }
@@ -52,11 +60,46 @@ android {
             coroutines 'enable'
         }
     }
+
+    flavorDimensions "version", "device"
+
+    productFlavors {
+        free {
+            dimension "version"
+            // ... 其他配置 ...
+            resValue "string", "version_name", "this is free version"
+        }
+
+        pro {
+            dimension "version"
+            // ... 其他配置 ...
+            resValue "string", "version_name", "this is pro version"
+        }
+
+        wareable {
+            dimension "device"
+            // ... 其他配置 ...
+            resValue "string", "device_name", "this is wareable device"
+        }
+
+        phone {
+            dimension "device"
+            // ... 其他配置 ...
+            resValue "string", "device_name", "this is phone device"
+        }
+
+        tablet {
+            dimension "device"
+            // ... 其他配置 ...
+            resValue "string", "device_name", "this is tablet device"
+        }
+    }
 }
+
 def work_version = "1.0.0-alpha10"
 def room_version = "2.2.6"
 dependencies {
-
+    println("app dependencies")
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.2.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'
@@ -64,6 +107,8 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation project(path: ':jackutils')
+    implementation project(path: ':testmoduleone')
+    implementation project(path: ':testmoduletwo')
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
@@ -110,5 +155,57 @@ dependencies {
     //refresh
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-14'
+    //Arouter
+    implementation 'com.alibaba:arouter-api:1.5.2'
+    //annotationProcessor("com.alibaba:arouter-compiler:1.5.2")
+    kapt 'com.alibaba:arouter-compiler:1.5.2'
+    //virtualapk
+    //implementation 'com.didi.virtualapk:core:0.9.8'
 
+}
+
+task jack_hello(dependsOn: 'jack_file'){
+    apply from: "jack.gradle"
+    def a=1
+    def b=2
+    def c=a+b
+    def str="jack is handsome"
+    println("a=$a,b=$b,c=$c,str=$str")
+    println("name=$name,age=$age,sex=$sex")
+    sports_list.each{
+        println("get list item: $it")
+    }
+    def jackPropFile = file('./jack.properties')
+    Properties jackProp = new Properties()
+    jackProp.load(new FileInputStream(jackPropFile))
+    String contrey_name=jackProp['contrey_name'].toString()
+    String province=jackProp['province'].toString()
+    String city=jackProp['city'].toString()
+    String location=jackProp['location'].toString()
+    String street_number=jackProp['street_number'].toInteger()
+    println("contrey_name=$contrey_name")
+    println("province=$province")
+    println("city=$city")
+    println("location=$location")
+    println("street_number=$street_number")
+
+}
+
+task jack_file(type: Copy){
+    println("file task start")
+    File tempFile=new File("jack.txt")
+    if(tempFile.exists()){
+        println("file is missing")
+        tempFile.createNewFile()
+    }else{
+        println("file is ok")
+    }
+    tempFile.write("jack is handsome")
+    int c=function_one(1,2)
+    println("c=$c")
+    println("file task over")
+}
+
+int function_one(int a,int b){
+    return a+b
 }

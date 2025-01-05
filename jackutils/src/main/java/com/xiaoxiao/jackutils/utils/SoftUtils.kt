@@ -2,6 +2,7 @@ package com.xiaoxiao.jackutils.utils
 
 import android.app.ActivityManager
 import android.content.Context
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
@@ -18,6 +19,7 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.experimental.and
+
 
 class SoftUtils {
 
@@ -580,7 +582,22 @@ class SoftUtils {
             }
             SoftUtils.log("imagePath=$imagePath")
         }
+        fun getAppVersion(context: Context): String {
+            var versionCode :String?=null
+            try {
+                val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
+                //versionCode = packageInfo.versionCode
+                versionCode=packageInfo.versionName+"-"+packageInfo.versionCode
+            } catch (e: PackageManager.NameNotFoundException) {
+                // 应用程序没有找到异常
+                e.printStackTrace()
+            }
+            return versionCode!!
+        }
 
+        fun getPakageName(context: Context):String{
+            return context.packageName
+        }
     }
 
 

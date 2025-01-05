@@ -1,24 +1,34 @@
 package com.example.kotlinstudy
 
 import android.content.Intent
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.view.View.OnClickListener
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
+import com.alibaba.android.arouter.launcher.ARouter
 import com.example.kotlinstudy.BluetoothChat.BluetoothChat
 import com.example.kotlinstudy.activity.*
 import com.example.kotlinstudy.databinding.ActivityMainBinding
-import com.example.kotlinstudy.hook.JetpackHook
 import com.example.kotlinstudy.info.AInterface
 import com.example.kotlinstudy.info.Person
 import com.example.kotlinstudy.info.Student3
 import com.example.kotlinstudy.info.UpData
 import com.example.kotlinstudy.utils.KotlinUtils
 import com.example.kotlinstudy.utils.PermissionUtils
+import com.xiaoxiao.jackutils.network.SoftHttp
+import com.xiaoxiao.jackutils.utils.SoftPermisson
+import com.xiaoxiao.jackutils.utils.SoftScope
 import com.xiaoxiao.jackutils.utils.SoftUtils
+import java.io.File
+
 
 class MainActivity : AppCompatActivity() {
     var tag:String="MainActivity";
@@ -36,10 +46,14 @@ class MainActivity : AppCompatActivity() {
                 TODO("Not yet implemented")
             }
         })
+        SoftPermisson.askFile(this)
+        //SoftPermisson.askInstallUnkownPackage(this)
         //test_kt()
     }
 
     fun initViews(){
+        var showStr=getString(R.string.version_name)+"\n"+getString(R.string.device_name)+"\n"+SoftUtils.getAppVersion(this)
+        binding!!.mainTv1.setText(showStr)
         btn_work=binding!!.workBtn//findViewById(R.id.work_btn)
         btn_work.setText("work")
         btn_work.setOnClickListener(object: OnClickListener{
@@ -81,6 +95,11 @@ class MainActivity : AppCompatActivity() {
             KotlinUtils.log(tag,"navigation btn click")
             openNavigationWindow()
         }
+
+        binding!!.fotaBtn.setOnClickListener{
+            KotlinUtils.log(tag,"fota btn click")
+            handleFota()
+        }
        /* val mhook: JetpackHook?= JetpackHook.instance
         mhook?.attarchActivity(this)
         try {
@@ -115,6 +134,7 @@ class MainActivity : AppCompatActivity() {
 
         var loMethod=KotlinUtils::class.java.getDeclaredMethod("logout",String::class.java,String::class.java)
         lMethod.invoke(KotlinUtils::class.java.newInstance(),"jack","normal func")
+
     }
 
     fun openCustomViewWindow(){
@@ -138,7 +158,8 @@ class MainActivity : AppCompatActivity() {
     fun openJetpacktWindow(){
         var mintent: Intent = Intent()
         mintent.setClass(this, JetpackActivity::class.java)
-        startActivity(mintent)
+        //startActivity(mintent)
+        ARouter.getInstance().build("/app/JetpackActivity").navigation();
     }
 
     fun openAidltWindow(){
@@ -157,6 +178,36 @@ class MainActivity : AppCompatActivity() {
         var mintent: Intent = Intent()
         mintent.setClass(this, CustomerNavigationActivity::class.java)
         startActivity(mintent)
+    }
+
+    fun handleFota(){
+        var url="https://api.github.com/users/zhangnangua"
+        SoftScope.builder().setAction(object:SoftScope.ScopeAction{
+            override fun doAction() {
+                var res=SoftHttp.sendGetRequest(url)
+                KotlinUtils.log(tag,"res=$res")
+            }
+        }).launch()
+
+        SoftHttp.sendGetRequestBySync(url,object:SoftHttp.OnHttpSync{
+            override fun onSync(data: String) {
+                KotlinUtils.log(tag,"onSync data=$data")
+            }
+        })
+        /* var apkUri: Uri;
+        var apkFile= File("storage/emulated/0/Download/JackUtilsFile/app-debug.apk")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            apkUri = FileProvider.getUriForFile(this,
+                BuildConfig.APPLICATION_ID + ".fileprovider", apkFile);
+        } else {
+            apkUri = Uri.fromFile(apkFile);
+        }
+        //apkUri = Uri.fromFile(apkFile);
+        var intent:Intent = Intent(Intent.ACTION_VIEW);
+        intent.setData(apkUri);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);*/
     }
     fun test_kt(){
         KotlinUtils.log(tag,"in")

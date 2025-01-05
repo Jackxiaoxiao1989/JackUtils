@@ -21,3 +21,8 @@
 #-renamesourcefileattribute SourceFile
 -dontwarn com.tencent.bugly.**
 -keep public class com.tencent.bugly.**{*;}
+#-keep class com.didi.virtualapk.internal.VAInstrumentation{*;}
+#-keep class com.didi.virtualapk.internal.PluginContentResolver{*;}
+#-dontwarn com.didi.virtualapk.**
+#-dontwarn android.**
+#-keep class android.** {*;}

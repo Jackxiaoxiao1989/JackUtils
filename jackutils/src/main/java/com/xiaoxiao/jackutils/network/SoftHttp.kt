@@ -371,4 +371,111 @@ object SoftHttp {
         fun onDownloadFailed(e: Exception?)
     }
      */
+
+        var JSON_MEDIA_TYPE= MediaType.parse("application/json; charset=utf-8")
+        var MAX_REQUESTS = 4
+        var CONNECTION_POOL_SIZE = 10
+        var CONNECTION_POOL_KEEP_ALIVE_DURATION:Long = 5
+        var TIMEOUT_DURATION :Long= 30
+
+    interface OnHttpSync{
+        fun onSync(data:String)
+    }
+    var onHttpSync:OnHttpSync?=null
+        // 发送GET请求
+        fun sendGetRequestBySync(url:String,onSync:OnHttpSync) {
+            SoftUtils.log(tag,"sendGetRequest,url=$url")
+            onHttpSync=onSync
+            val request: Request = Request.Builder()
+                .url(url)
+                .build()
+
+                OkHttpClient().newCall(request).enqueue(object : Callback {
+                    override fun onFailure(call: Call?, e: IOException) {
+                        SoftUtils.log(tag, "fail: " + e);
+                        e.printStackTrace()
+                        onHttpSync!!.onSync("error")
+                    }
+
+                    @Throws(IOException::class)
+                    override fun onResponse(call: Call?, response: Response) {
+                        if (response.isSuccessful) {
+                            val result = response.body()!!.string()
+                            SoftUtils.log(tag, "result: " + result);
+                            onHttpSync!!.onSync(result)
+                            // 处理结果
+                        }
+                    }
+                })
+
+
+            }
+    fun sendGetRequest(url:String):String{
+        SoftUtils.log(tag,"sendGetRequest,url=$url")
+        val request: Request = Request.Builder()
+            .url(url)
+            .build()
+
+        val call: Call = OkHttpClient().newCall(request)
+        val response = call.execute()
+        if (response.isSuccessful) {
+            val result = response.body()!!.string()
+            SoftUtils.log(tag, "result: " + result);
+            return result
+        } else {
+            return "Error"
+        }
+    }
+        // 发送POST请求
+        fun  sendPostRequest(url:String , param:Map<String,String>):String {
+            SoftUtils.log(tag,"sendPostRequest,url=$url")
+            //SoftUtils.log(tag,"sendPostRequest,json=$json")
+            val formBody = FormBody.Builder().also { builder->
+                param.forEach{(key,value)->builder.add(key,value)}
+            }.build()
+
+
+            val request: Request = Request.Builder()
+                .url(url)
+                .post(formBody)
+                .build()
+
+            val call: Call = OkHttpClient().newCall(request)
+            val response = call.execute()
+            return if (response.isSuccessful) {
+                response.body()!!.string()
+            } else "Error"
+        }
+
+    fun  sendPostRequestBySync(url:String , param:Map<String,String>,onSync:OnHttpSync) {
+        SoftUtils.log(tag,"sendPostRequest,url=$url")
+        //SoftUtils.log(tag,"sendPostRequest,json=$json")
+        onHttpSync=onSync
+        /* var requestBody:RequestBody = RequestBody.create(JSON_MEDIA_TYPE, "json here")
+         var request = Request.Builder()
+            .url(url)
+            .post(requestBody)
+            .build();*/
+
+        val formBody = FormBody.Builder().also { builder->
+            param.forEach{(key,value)->builder.add(key,value)}
+        }.build()
+
+
+        val request: Request = Request.Builder()
+            .url(url)
+            .post(formBody)
+            .build()
+
+        OkHttpClient().newCall(request).enqueue(object:Callback{
+            override fun onFailure(call: Call, e: IOException) {
+                onHttpSync!!.onSync("error")
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                onHttpSync!!.onSync(response!!.toString())
+            }
+        })
+
+    }
 }

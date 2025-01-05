@@ -34,6 +34,7 @@ import com.lxj.xpopup.interfaces.OnSelectListener
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
+import com.tencent.bugly.crashreport.CrashReport
 
 
 class WorkActivity : RootActivity() {
